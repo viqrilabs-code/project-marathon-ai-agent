@@ -1,0 +1,13 @@
+langchain
+langchain-google-genai
+langgraph
+google-genai
+fastapi
+pydantic
+uvicorn[standard]
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+mcp[cli]>=1.28,<2
+langchain-mcp-adapters>=0.3
+python-dotenv
