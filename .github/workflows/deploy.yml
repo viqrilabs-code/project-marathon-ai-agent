@@ -23,25 +23,28 @@ jobs:
       - name: Copy code on Github server
         uses: actions/checkout@v4
 
-      - name: Google cloud login
-        uses: google-github-actions/auth@v2
+      - name: Google Cloud login
+        id: auth
+        uses: google-github-actions/auth@v3
         with:
-          workload_identity_provider: 'projects/571444843501/locations/global/workloadIdentityPools/calc-webinar/providers/github-provider'
-          service_account: '571444843501-compute@://gserviceaccount.com'
+          project_id: ${{ env.GCP_PROJECT_ID }}
+          workload_identity_provider: 'projects/571444843501/locations/global/workloadIdentityPools/calc-webinar-edited/providers/github-provider-edited'
+          service_account: '571444843501-compute@developer.gserviceaccount.com'
+          token_format: 'access_token'
 
       - name: Login to Artifact Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.GAR_LOCATION }}-docker.pkg.dev
-          username: _json_key_base64
-          password: ${{ steps.auth.outputs.auth_token }}
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
 
       - name: Build and Push container
         uses: docker/build-push-action@v6
         with:
-          contect: .
+          context: .
           push: true
-          tags: | 
+          tags: |
             ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.REPOSITORY_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
 
       - name: Deploy to Cloud Run
