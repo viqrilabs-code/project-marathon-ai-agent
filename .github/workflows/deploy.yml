@@ -12,7 +12,7 @@ env:
   REPOSITORY_NAME: 'tamgam'                  # The storage bucket name inside Artifact Registry
 
 
-permimssions:
+permissions:
   contents: read
   id-token: write
 
@@ -26,7 +26,7 @@ jobs:
       - name: Google cloud login
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: 'projects/571444843501/locations/global/workloadIdentityPools/YOUR_POOL_NAME/providers/YOUR_PROVIDER_NAME'
+          workload_identity_provider: 'projects/571444843501/locations/global/workloadIdentityPools/calc-webinar/providers/github-provider'
           service_account: '571444843501-compute@://gserviceaccount.com'
 
       - name: Login to Artifact Registry
@@ -42,7 +42,7 @@ jobs:
           contect: .
           push: true
           tags: | 
-            ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID}}
+            ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.REPOSITORY_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2
