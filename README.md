@@ -10,4 +10,5 @@ python3 -m pip install \
   google-auth-httplib2 \
   google-auth-oauthlib
 
+uvicorn src.orchestrator_mcp:app --port 8000 --reload
 
