@@ -9,7 +9,7 @@ env:
   GAR_LOCATION: 'us-central1'                        # The physical data center region for your container storage
   CR_REGION: 'us-central1'                           # The physical data center region where your web app lives
   SERVICE_NAME: 'calc-cloud-run-deploy'                # The name your application will have in Cloud Run
-  REPOSITORY_NAME: 'tamgam'                  # The storage bucket name inside Artifact Registry
+  REPOSITORY_NAME: 'viqrilabs-code-tamgam'                  # The storage bucket name inside Artifact Registry
 
 
 permissions:
